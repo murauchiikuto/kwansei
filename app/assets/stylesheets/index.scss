@@ -1,0 +1,45 @@
+.students-container {
+    width: 50%;
+    margin: 10px auto;
+
+    background-color: #e0c9b5;
+
+ }
+
+ h1 {
+    text-align: center;
+  background-color: #e0c9b5;
+  
+
+}
+
+  h3 {
+    
+    background-color: #e0c9b5;
+
+    width: 100px;
+    margin: 10px auto;
+    text-align: center;
+  }
+
+  .student {
+    
+    margin-top: 10px;
+    padding-top: 20px;
+   text-align: center;
+  border: 3px solid red;
+  }
+  .main-box {
+
+    
+
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+  }
+  .time {
+    display: flex;
+    justify-content: flex-end;
+    
+  }
+

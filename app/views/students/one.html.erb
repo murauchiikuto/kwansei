@@ -1,0 +1,51 @@
+<h1>1年生</h1>
+#詳細は後で追記,ネコとハダカデバネズミも同様
+<% @students.each do |t| %>
+    <% if t.grade == "1" %>  #ここがポイント！ categoryカラムにdogと格納されているものだけを表示している！
+    <div class="student">
+   
+    <%= image_tag t.image_url, size: "250x200" if t.image? %>
+
+    <%= t.user.email %>
+   
+    
+
+    <% if user_signed_in? %>
+     <% if current_user.already_liked?(t) %>
+         <%= button_to student_like_path(id: t.id, student_id: t.id), method: :delete do %>
+             <p>いいねを取り消す</p><%= t.likes.count %>
+         <% end %>
+     <% else %>
+         <%= button_to student_likes_path(id: t.id, student_id: t.id), method: :post do %>
+             <p>いいね</p><%= t.likes.count %>
+         <% end %>
+     <% end %>
+    <% else %>
+     <p>いいねの数 = </p><%= t.likes.count %>
+    <% end %>
+
+    
+     <%= t.grade %>
+     <%= t.title %>
+
+     
+      
+   
+   
+     
+   
+     <p class="time"><%= t.created_at %></p>
+
+
+     <div class="right-container">
+      <%= link_to "詳細へ", student_path(t.id) %>
+      <% if user_signed_in? && current_user.id == t.user_id %>
+      <%= link_to "編集する", edit_student_path(t.id) %>
+      <%= button_to "削除する", student_path(t.id), method: :delete %>
+    </div>
+      <% end %>
+   </div>
+    <% end %>
+    
+  <% end %>
+  <%= link_to "一覧に戻る", students_path %>

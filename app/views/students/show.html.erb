@@ -1,0 +1,53 @@
+<h1>background-color: #e0c9b5;</h1>
+<h3>詳細</h3>
+<div class="student">
+  <%= @student.genre %>
+  <%= @student.major %>
+  <%= @student.grade %>
+  <%= @student.title %>
+
+ <%= @student.created_at %>
+  <% if user_signed_in? %>
+      <% if current_user.already_liked?(@student) %>
+        <%= button_to student_like_path(@student), method: :delete do %>
+          <p>いいねを取り消す</p><%= @student.likes.count %>
+          <% end %>
+         <% else %>   
+          <%= button_to student_likes_path(@student), method: :post do %>
+            <p>いいね</p><%= @student.likes.count %>
+     <% end %>
+       <% end %> 
+    <% else %>
+        <p>いいねの数 = </p><%= @student.likes.count %>
+    <% end %>
+
+ <%= link_to "編集する", edit_student_path(@student.id) %>
+</div>
+
+<h2>いいねしたユーザー</h2>
+<% @student.liked_users.each do |user| %>
+  <li><%= user.email %></li>
+<% end %>
+
+<div class="comment-wrapper">
+  <p>コメント一覧</p>
+  <% @comments.each do |c| %>
+    <div>
+      <%= c.user.email unless c.user.blank? %>
+      <br>
+      <%= c.content %>
+    </div>
+      <br>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= form_with(model: [@student, @comment], local: true) do |f| %>
+      <%= f.text_area :content %>
+      <%= button_tag type: "submit" do %>
+        <i class="far fa-comments"></i> コメントする
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<%= link_to "一覧に戻る", students_path %>
